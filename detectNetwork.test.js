@@ -281,7 +281,7 @@ describe('Maestro', function() {
     expect(detectNetwork('503812345678')).to.equal('Maestro');
   });
 
-  it('has a prefix of 50380 and a length of 13', function () {
+  it('has a prefix of 5038 and a length of 13', function () {
     expect(detectNetwork('5038123456789')).to.equal('Maestro');
   });
 
@@ -343,5 +343,17 @@ describe('Maestro', function() {
   });
 });
 
-describe('should support China UnionPay')
+describe('should support China UnionPay', function() {
+  var expect = chai.expect;
+
+  for (var i = 622126; i < 622926; i++) {
+    var tempCardNumb = i.toString() + '1234567890';
+    for (var j = 16; j < 20; j++) {
+      it('has a prefix of ' + i.toString() + ' and a length of ' + j.toString(), function () {
+        expect(detectNetwork(tempCardNumb)).to.equal('China UnionPay');
+        tempCardNumb = tempCardNumb + '0';
+      });
+    }
+  }
+});
 describe('should support Switch')

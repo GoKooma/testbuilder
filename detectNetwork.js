@@ -35,70 +35,100 @@ var detectNetwork = function(cardNumber) {
   		return 'Visa';
   	} 
   } else if (cardNumber[0] === '5') {
-  		if (cardNumber.substring(1,4) === '018') {
-  			for (var i = 12; i < 20; i++) {
-  				if (i === cardNumber.length) {
-  					return 'Maestro';
-  				}
-  			}
-  		} else if (cardNumber.substring(1,4) === '020') {
-  			for (var i = 12; i < 20; i++) {
-  				if (i === cardNumber.length) {
-  					return 'Maestro';
-  				}
-  			}
-  		} else if (cardNumber.substring(1,4) === '038') {
-  			for (var i = 12; i < 20; i++) {
-  				if (i === cardNumber.length) {
-  					return 'Maestro';
-  				}
-  			}
-  		} else if (cardNumber.length === 16) {
-  			// use for loop to check if the prefix matches the range of matching network
-  			for (var i = 1; i < 6; i++) {
-  				if (i === Number(cardNumber[1])) {
-  					return 'MasterCard';
-  				}
+  	if (cardNumber.substring(1,4) === '018') {
+  		for (var i = 12; i < 20; i++) {
+ 			if (i === cardNumber.length) {
+  				return 'Maestro';
   			}
   		}
-  } else if (cardNumber.substring(0,4) === '6011') {
-  		if ((cardNumber.length === 16) || (cardNumber.length === 19)) {
-  			return 'Discover';
-  		}
-  } else if (cardNumber.substring(0,3) === '644') {
-  		if ((cardNumber.length === 16) || (cardNumber.length === 19)) {
-  			return 'Discover';
-  		}
-  } else if (cardNumber.substring(0,3) === '645') {
-  		if ((cardNumber.length === 16) || (cardNumber.length === 19)) {
-  			return 'Discover';
-  		}
-  } else if (cardNumber.substring(0,3) === '646') {
-  		if ((cardNumber.length === 16) || (cardNumber.length === 19)) {
-  			return 'Discover';
-  		}
-  } else if (cardNumber.substring(0,3) === '647') {
-  		if ((cardNumber.length === 16) || (cardNumber.length === 19)) {
-  			return 'Discover';
-  		}
-  } else if (cardNumber.substring(0,3) === '648') {
-  		if ((cardNumber.length === 16) || (cardNumber.length === 19)) {
-  			return 'Discover';
-  		}
-  } else if (cardNumber.substring(0,3) === '649') {
-  		if ((cardNumber.length === 16) || (cardNumber.length === 19)) {
-  			return 'Discover';
-  		}
-  } else if (cardNumber.substring(0,2) === '65') {
-  		if ((cardNumber.length === 16) || (cardNumber.length === 19)) {
-  			return 'Discover';
-  		}
-  } else if (cardNumber.substring(0,4) === '6304') {
+  	} else if (cardNumber.substring(1,4) === '020') {
   		for (var i = 12; i < 20; i++) {
   			if (i === cardNumber.length) {
   				return 'Maestro';
   			}
   		}
-  }
-  
+  	} else if (cardNumber.substring(1,4) === '038') {
+  		for (var i = 12; i < 20; i++) {
+  			if (i === cardNumber.length) {
+  				return 'Maestro';
+  			}
+  		}
+  	} else if (cardNumber.length === 16) {
+  		// use for loop to check if the prefix matches the range of matching network
+  		for (var i = 1; i < 6; i++) {
+  			if (i === Number(cardNumber[1])) {
+  				return 'MasterCard';
+  			}
+  		}
+  	}
+  		// Check for Discover or Maestro now
+  } else if (cardNumber.substring(0,4) === '6011') {
+  	if ((cardNumber.length === 16) || (cardNumber.length === 19)) {
+  		return 'Discover';
+  	}
+  } else if (cardNumber.substring(0,3) === '644') {
+  	if ((cardNumber.length === 16) || (cardNumber.length === 19)) {
+  		return 'Discover';
+  	}
+  } else if (cardNumber.substring(0,3) === '645') {
+  	if ((cardNumber.length === 16) || (cardNumber.length === 19)) {
+  		return 'Discover';
+  	}
+  } else if (cardNumber.substring(0,3) === '646') {
+  	if ((cardNumber.length === 16) || (cardNumber.length === 19)) {
+  		return 'Discover';
+  	}
+  } else if (cardNumber.substring(0,3) === '647') {
+  	if ((cardNumber.length === 16) || (cardNumber.length === 19)) {
+  		return 'Discover';
+  	}
+  } else if (cardNumber.substring(0,3) === '648') {
+  	if ((cardNumber.length === 16) || (cardNumber.length === 19)) {
+  		return 'Discover';
+  	}
+  } else if (cardNumber.substring(0,3) === '649') {
+  	if ((cardNumber.length === 16) || (cardNumber.length === 19)) {
+  		return 'Discover';
+  	}
+  } else if (cardNumber.substring(0,2) === '65') {
+  	if ((cardNumber.length === 16) || (cardNumber.length === 19)) {
+  		return 'Discover';
+  	}
+  } else if (cardNumber.substring(0,4) === '6304') {
+  	for (var i = 12; i < 20; i++) {
+  		if (i === cardNumber.length) {
+  			return 'Maestro';
+  		}
+  	}
+  } else {
+  	for (var i = 622126; i < 622926; i++) {
+  		if (i === Number(cardNumber.substring(0,6))) {
+  			for (var j = 16; j < 20; j++) {
+  				if (j === cardNumber.length) {
+  					return 'China UnionPay';
+  				}
+  			}
+  		}
+  	}
+
+  	for (var k = 624; k < 627; k++) {
+  		if (k === Number(cardNumber.substring(0,3))) {
+  			for (var j = 16; j < 20; j++) {
+  				if (cardNumber.length === j) {
+  					return 'China UnionPay';
+  				}
+  			}
+  		}
+  	}
+
+  	for (var l = 6282; l < 6289; l++) {
+  		if (l === Number(cardNumber.substring(0,4))) {
+  			for (var j = 16; j < 20; j++) {
+  				if (cardNumber.length === j) {
+  					return 'China UnionPay';
+  				}
+  			}
+  		}
+  	}
+  } 
 }
