@@ -32,8 +32,10 @@ var detectNetwork = function(cardNumber) {
   // if first prefix is 4, then check if it belongs to Visa
   else if (cardNumber[0] === '4') {
   	// Swich starting with 4
-  	if (cardNumber[1] === '9') {
-  		if ((cardNumber.substring(2,4) === '03') || cardNumber.substring(2,4) === '05') {
+  	if (cardNumber.length === 13) {
+  		return 'Visa';
+  	} else if (cardNumber[1] === '9') {
+  		if ((cardNumber.substring(2,4) === '03') || (cardNumber.substring(2,4) === '05')) {
   			if ((cardNumber.length === 16) || (cardNumber.length === 18) || (cardNumber.length === 19)) {
   				return 'Switch';
   			}
@@ -41,28 +43,28 @@ var detectNetwork = function(cardNumber) {
   			if ((cardNumber.length === 16) || (cardNumber.length === 18) || (cardNumber.length === 19)) {
   				return 'Switch';
   			}
+  		} else if ((cardNumber.length === 16) || (cardNumber.length === 19)) {
+  			return 'Visa';
   		}
-  	}
-  	// Otherwise, the network must be Visa
-  	if ((cardNumber.length === 13) || (cardNumber.length === 16) || (cardNumber.length === 19)) {
+  	} else if ((cardNumber.length === 16) || (cardNumber.length === 19)) {
   		return 'Visa';
-  	} 
+  	}
 
   } else if (cardNumber[0] === '5') {
   	var prefix = ['018', '020', '038', '304'];
 
-  	for (let j of prefix) {
-		//console.log(i);
+  	for (var j of prefix) {
+  		//console.log(cardNumber);
   		if (j === cardNumber.substring(1,4)) {
-  			for (let k = 12; k <= 19; k++) {
- 				if (k === cardNumber.length) {
+  			for (var k = 12; k <= 19; k++) {
+				if (k === cardNumber.length) {
   					return 'Maestro';
  				}
   			}
   		} else {
   			if (cardNumber.length === 16) {
  				// use for loop to check if the prefix matches the range of matching network
-  				for (let i = 1; i < 6; i++) {
+  				for (var i = 1; i < 6; i++) {
   					if (i === Number(cardNumber[1])) {
   						return 'MasterCard';
   					} 
@@ -130,35 +132,35 @@ var detectNetwork = function(cardNumber) {
   		}
   	}
   } 
-  // else {
-  // 	for (var i = 622126; i < 622926; i++) {
-  // 		if (i === Number(cardNumber.substring(0,6))) {
-  // 			for (var j = 16; j < 20; j++) {
-  // 				if (j === cardNumber.length) {
-  // 					return 'China UnionPay';
-  // 				}
-  // 			}
-  // 		}
-  // 	}
+  else {
+  	for (var i = 622126; i < 622926; i++) {
+  		if (i === Number(cardNumber.substring(0,6))) {
+  			for (var j = 16; j < 20; j++) {
+  				if (j === cardNumber.length) {
+  					return 'China UnionPay';
+  				}
+  			}
+  		}
+  	}
 
-  // 	for (var k = 624; k < 627; k++) {
-  // 		if (k === Number(cardNumber.substring(0,3))) {
-  // 			for (var j = 16; j < 20; j++) {
-  // 				if (cardNumber.length === j) {
-  // 					return 'China UnionPay';
-  // 				}
-  // 			}
-  // 		}
-  // 	}
+  	for (var k = 624; k < 627; k++) {
+  		if (k === Number(cardNumber.substring(0,3))) {
+  			for (var j = 16; j < 20; j++) {
+  				if (cardNumber.length === j) {
+  					return 'China UnionPay';
+  				}
+  			}
+  		}
+  	}
 
-  // 	for (var l = 6282; l < 6289; l++) {
-  // 		if (l === Number(cardNumber.substring(0,4))) {
-  // 			for (var j = 16; j < 20; j++) {
-  // 				if (cardNumber.length === j) {
-  // 					return 'China UnionPay';
-  // 				}
-  // 			}
-  // 		}
-  // 	}
-  // } 
+  	for (var l = 6282; l < 6289; l++) {
+  		if (l === Number(cardNumber.substring(0,4))) {
+  			for (var j = 16; j < 20; j++) {
+  				if (cardNumber.length === j) {
+  					return 'China UnionPay';
+  				}
+  			}
+  		}
+  	}
+  } 
 }
