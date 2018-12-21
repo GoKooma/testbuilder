@@ -215,7 +215,7 @@ describe('Maestro', function() {
   prefix.forEach (function(i) {
     let tempCardNumb = i.toString() + '12345678';
     for (var j = 12; j <= 19; j++) (function(tempCardNumb) {
-      console.log(tempCardNumb);
+      // console.log(tempCardNumb);
       // tempCardNumb is not passing in properly
       it('has a prefix of ' + i.toString() + ' and a length of ' + j.toString(), function() {
         expect(detectNetwork(tempCardNumb)).to.equal('Maestro');
@@ -242,12 +242,15 @@ describe('China UnionPay', function() {
 describe('Switch', function() {
   var expect = chai.expect;
   let switchPrefix = ['4903', '4905', '4911', '4936'];
-  let switchLength = [16, 18, 19];
 
   for (var i of switchPrefix) {
-    let tempCardNumb = i + '12345678';
-    for (var j of switchLength) (function(tempCardNumb) {
-      console.log(tempCardNumb);
+    let tempCardNumb = i + '123456789012';
+    it('has a prefix of ' + i + ' and a length of 16', function() {
+        expect(detectNetwork(tempCardNumb)).to.equal('Switch');
+      });
+    tempCardNumb = tempCardNumb + '00';
+
+    for (var j = 18; j <= 19; j++) (function(tempCardNumb) {
       it('has a prefix of ' + i + ' and a length of ' + j.toString(), function() {
         expect(detectNetwork(tempCardNumb)).to.equal('Switch');
       });

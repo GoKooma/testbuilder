@@ -50,49 +50,37 @@ var detectNetwork = function(cardNumber) {
   		return 'Visa';
   	}
 
-  } else if (cardNumber[0] === '5') {
-  	var prefix = ['018', '020', '038', '304'];
-
-  	for (var j of prefix) {
-  		//console.log(cardNumber);
-  		if (j === cardNumber.substring(1,4)) {
-  			for (var k = 12; k <= 19; k++) {
-				if (k === cardNumber.length) {
-  					return 'Maestro';
- 				}
+  } 
+  else if (cardNumber[0] === '5') {
+  	if (cardNumber.substring(1,4) === '018') {
+  		for (var i = 12; i < 20; i++) {
+ 			if (i === cardNumber.length) {
+  				return 'Maestro';
   			}
-  		} else {
-  			if (cardNumber.length === 16) {
- 				// use for loop to check if the prefix matches the range of matching network
-  				for (var i = 1; i < 6; i++) {
-  					if (i === Number(cardNumber[1])) {
-  						return 'MasterCard';
-  					} 
-  				}
-  			} 
   		}
- 	}
-  // else if (cardNumber[0] === '5') {
-  // 	if (cardNumber.substring(1,4) === '018') {
-  // 		for (var i = 12; i < 20; i++) {
- 	// 		if (i === cardNumber.length) {
-  // 				return 'Maestro';
-  // 			}
-  // 		}
-  // 	} else if (cardNumber.substring(1,4) === '020') {
-  // 		for (var i = 12; i < 20; i++) {
-  // 			if (i === cardNumber.length) {
-  // 				return 'Maestro';
-  // 			}
-  // 		}
-  // 	} else if (cardNumber.substring(1,4) === '038') {
-  // 		for (var i = 12; i < 20; i++) {
-  // 			if (i === cardNumber.length) {
-  // 				return 'Maestro';
-  // 			}
-  // 		}
-
-  		// Check for Discover or Maestro now
+  	} else if (cardNumber.substring(1,4) === '020') {
+  		for (var i = 12; i < 20; i++) {
+  			if (i === cardNumber.length) {
+  				return 'Maestro';
+  			}
+  		}
+  	} else if (cardNumber.substring(1,4) === '038') {
+  		for (var i = 12; i < 20; i++) {
+  			if (i === cardNumber.length) {
+  				return 'Maestro';
+  			}
+  		}
+  	} else {
+  		if (cardNumber.length === 16) {
+ 			// use for loop to check if the prefix matches the range of matching network
+  			for (var i = 1; i < 6; i++) {
+  				if (i === Number(cardNumber[1])) {
+  					return 'MasterCard';
+  				}
+  			}
+  		}
+  	}
+  	// Check for Discover or Maestro now
   } else if (cardNumber.substring(0,4) === '6011') {
   	if ((cardNumber.length === 16) || (cardNumber.length === 19)) {
   		return 'Discover';
@@ -131,8 +119,7 @@ var detectNetwork = function(cardNumber) {
   			return 'Maestro';
   		}
   	}
-  } 
-  else {
+  } else {
   	for (var i = 622126; i < 622926; i++) {
   		if (i === Number(cardNumber.substring(0,6))) {
   			for (var j = 16; j < 20; j++) {
